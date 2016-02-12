@@ -25,7 +25,7 @@ app.get('/herokuTest', function(request, response) {
 	response.send('Hello World!');
 });
 
-
+/*
 //CODE
 var Airtable = require('airtable');
 var base = new Airtable({ apiKey: 'keyWInwqgSshQe7GV' }).base('app4ilATYQGuMBgjp');
@@ -56,7 +56,7 @@ app.get('/airtableTest', function(request, response) {
     });
 
 });
-
+*/
 
 
 
