@@ -19,14 +19,18 @@ app.listen(app.get('port'), function() {
 
 
 
+
+
+app.get('/herokuTest', function(request, response) {
+	response.send('Hello World!');
+});
+
+
 //CODE
 var Airtable = require('airtable');
 var base = new Airtable({ apiKey: 'keyWInwqgSshQe7GV' }).base('app4ilATYQGuMBgjp');
 
-app.get('/herokuTest', function (request, response) {
-	request.send('Hello World!');
-});
-app.get('/airtableTest', function (request, response) {
+app.get('/airtableTest', function(request, response) {
 	base('Route Data').select({
     // Selecting the first 3 records in Main View:
       maxRecords: 3,
@@ -50,7 +54,7 @@ app.get('/airtableTest', function (request, response) {
         console.log(error);
       }
     });
-	//request.send('Hello World!');
+
 });
 
 
