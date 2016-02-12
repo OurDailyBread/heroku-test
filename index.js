@@ -27,7 +27,7 @@ app.get('/herokuTest', function(request, response) {
 
 
 //CODE
-var Airtable = require('./airtable.js/lib/airtable.js');
+var Airtable = require('./airtable.js/lib/airtable');
 var base = new Airtable({ apiKey: 'keyWInwqgSshQe7GV' }).base('app4ilATYQGuMBgjp');
 
 app.get('/airtableTest', function(request, response) {
