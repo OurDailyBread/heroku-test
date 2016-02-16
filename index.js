@@ -29,7 +29,7 @@ app.get('/herokuTest', function(request, response) {
 //CODE
 var Airtable = require('airtable');
 var base = new Airtable({ apiKey: 'keyWInwqgSshQe7GV' }).base('app4ilATYQGuMBgjp');
-
+/*
 app.get('/airtableTest', function(request, response) {
 	base('Route Data').select({
     // Selecting the first 3 records in Main View:
@@ -56,7 +56,7 @@ app.get('/airtableTest', function(request, response) {
     });
 
 });
-
+*/
 
 
 
