@@ -1,5 +1,16 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+//app.configure(function() {
+//  app.use(bodyParser.urlencoded({ extended: false });
+//  app.use(bodyParser.json());
+  //app.use(express.bodyParser());
+  //app.use(app.router);
+//}
+
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -31,9 +42,10 @@ var Airtable = require('airtable');
 var base = new Airtable({ apiKey: 'keyWInwqgSshQe7GV' }).base('app4ilATYQGuMBgjp');
 
 app.get('/airtableTest', function(request, response) {
+	// URL params (GET) req.param.variable_name
+	// body params (POST) req.body.variable_name
 	base('Route Data').select({
     // Selecting the first 3 records in Main View:
-      maxRecords: 3,
       view: "Main View"
     }).eachPage(function page(records, fetchNextPage) {
 
@@ -41,7 +53,10 @@ app.get('/airtableTest', function(request, response) {
 
       records.forEach(function(record) {
         console.log('Retrieved ', record.get('Auto Number'));
-        response.end('Hello World\n');
+		//console.log(record);
+		console.log('ID: ' + record.id);
+		console.log('Request: ' + request.body.variable_name);
+        response.end(JSON.stringify(record));
       });
 
       // To fetch the next page of records, call `fetchNextPage`.
@@ -55,6 +70,58 @@ app.get('/airtableTest', function(request, response) {
       }
     });
 
+});
+
+
+// http://www.murvinlai.com/req-and-res-in-nodejs.html
+// shows sample request object
+/*
+req = {
+    _startTime     :    Date, 
+    app            :    function(req,res){},
+    body           :    {},
+    client         :    Socket,
+    complete       :    Boolean,
+    connection     :    Socket,
+    cookies        :     {},
+    files          :     {},
+    headers        :    {},
+    httpVersion    :    String,
+    httpVersionMajor    :    Number,
+    httpVersionMinor    :     Number,
+    method         :    String,  // e.g. GET POST PUT DELETE
+    next           :    function next(err){},
+    originalUrl    :    String,     // e.g. /erer?param1=23¶m2=45
+    params         :    [],
+    query          :    {},
+    readable       :    Boolean,
+    res            :    ServerResponse,
+    route          :    Route,
+    signedCookies  :    {},
+    socket         :    Socket,
+    url            :    String //e.g. /erer?param1=23¶m2=45 
+}
+
+res = {
+    app            :    function(req, res) {},
+    chunkedEncoding:    Boolean,
+    connection     :     Socket,
+    finished       :    Boolean,
+    output         :    [],
+    outputEncodings:    [],
+    req            :    IncomingMessage,
+    sendDate       :    Boolean,
+    shouldkeepAlive    : Boolean,
+    socket         :     Socket,
+    useChunkedEncdoingByDefault    :    Boolean,
+    viewCallbacks  :    [],
+    writable       :     Boolean
+}
+
+*/
+app.post('/saveMap', function(request, response) {
+	console.log('POST test successful ' + JSON.stringify(request.body));
+	response.end('success');
 });
 
 
