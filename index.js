@@ -61,7 +61,7 @@ var base = new Airtable({ apiKey: 'keyWInwqgSshQe7GV' }).base('app4ilATYQGuMBgjp
 app.get('/airtableTest', function(request, response) {
 	// URL params (GET) req.param.variable_name
 	// body params (POST) req.body.variable_name
-	base('Route Data').select({
+	base('Route Data Table').select({
     // Selecting the first 3 records in Main View:
       view: "Main View"
     }).eachPage(function page(records, fetchNextPage) {
@@ -139,6 +139,40 @@ res = {
 app.post('/saveMap', function(request, response) {
 	console.log('POST test successful ' + JSON.stringify(request.body));
 	response.end('success');
+});
+
+
+var vacantBase = new Airtable({ apiKey: 'keyWInwqgSshQe7GV' }).base('app8lwvpYxDp7t5Is');
+
+app.post('/markVacant', function(request, response) {
+  console.log('POST test successful ' + JSON.stringify(request.body));
+
+  var vacantBoolean = false;
+  if (request.body.vacant == 'true') {
+    vacantBoolean = true;
+  } else if (request.body.vacant == 'false') {
+    vacantBoolean = false;
+  } else {
+    response.end('incorrent vacant boolean value');
+    return;
+  }
+
+  vacantBase('Vacant Table').create({
+    "Address": request.body.address,
+    "Vacant": vacantBoolean
+  }, function(err, record) {
+    if (err) { 
+      //h.console.log(err);
+      console.log('error message: ' + err); 
+      return; 
+    }
+    //h.console.log(record);
+    console.log(record);
+  });
+
+
+
+  response.end('success');
 });
 
 
