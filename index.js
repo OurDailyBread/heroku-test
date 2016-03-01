@@ -147,28 +147,33 @@ var vacantBase = new Airtable({ apiKey: 'keyWInwqgSshQe7GV' }).base('app8lwvpYxD
 app.post('/markVacant', function(request, response) {
   console.log('POST test successful ' + JSON.stringify(request.body));
 
-  var vacantBoolean = false;
-  if (request.body.vacant == 'true') {
-    vacantBoolean = true;
-  } else if (request.body.vacant == 'false') {
-    vacantBoolean = false;
-  } else {
-    response.end('incorrent vacant boolean value');
-    return;
-  }
+  var postJSON = request.body.addresses;
+  for (var index in postJSON.data) {
 
-  vacantBase('Vacant Table').create({
-    "Address": request.body.address,
-    "Vacant": vacantBoolean
-  }, function(err, record) {
-    if (err) { 
-      //h.console.log(err);
-      console.log('error message: ' + err); 
-      return; 
+    var vacantBoolean = false;
+    if (request.body.vacant == 'true') {
+      vacantBoolean = true;
+    } else if (request.body.vacant == 'false') {
+      vacantBoolean = false;
+    } else {
+      response.end('incorrent vacant boolean value');
+      return;
     }
-    //h.console.log(record);
-    console.log(record);
-  });
+
+    vacantBase('Vacant Table').create({
+      "Address": postJSON.data[index].address,
+      "Vacant": vacantBoolean
+    }, function(err, record) {
+      if (err) { 
+        //h.console.log(err);
+        console.log('error message: ' + err); 
+        return; 
+      }
+      //h.console.log(record);
+      console.log(record);
+    });
+  }
+  
 
 
 
