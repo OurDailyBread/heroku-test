@@ -145,15 +145,16 @@ app.post('/saveMap', function(request, response) {
 var vacantBase = new Airtable({ apiKey: 'keyWInwqgSshQe7GV' }).base('app8lwvpYxDp7t5Is');
 
 app.post('/markVacant', function(request, response) {
+
   console.log('POST test successful ' + JSON.stringify(request.body));
 
   var postJSON = JSON.parse(request.body.addresses);
-  for (var index in postJSON.data) {
+  for (var index in postJSON.addresses) {
 
     var vacantBoolean = false;
-    if (request.body.vacant == 'true') {
+    if (postJSON.addresses[index].vacant == 'true') {
       vacantBoolean = true;
-    } else if (request.body.vacant == 'false') {
+    } else if (postJSON.addresses[index].vacant == 'false') {
       vacantBoolean = false;
     } else {
       response.end('incorrent vacant boolean value');
