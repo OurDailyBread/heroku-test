@@ -161,7 +161,7 @@ app.post('/markVacant', function(request, response) {
       response.end('incorrect vacant boolean value');
       return;
     }
-
+    console.log('preparing to send to Airtable');
     vacantBase('Vacant Table').create({
       "Address": postJSON.addresses[index].address,
       "Vacant": vacantBoolean
