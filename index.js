@@ -150,14 +150,14 @@ app.post('/markVacant', function(request, response) {
 
   var postJSON = JSON.parse(request.body.addresses);
   for (var index in postJSON.addresses) {
-
+    console.log('processing ' + postJSON.addresses[index].address);
     var vacantBoolean = false;
     if (postJSON.addresses[index].vacant == 'true') {
       vacantBoolean = true;
     } else if (postJSON.addresses[index].vacant == 'false') {
       vacantBoolean = false;
     } else {
-      response.end('incorrent vacant boolean value');
+      response.end('incorrect vacant boolean value');
       return;
     }
 
