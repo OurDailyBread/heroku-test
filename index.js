@@ -148,7 +148,8 @@ app.post('/markVacant', function(request, response) {
 
   console.log('POST received ' + JSON.stringify(request.body));
 
-  var postJSON = JSON.parse(request.body.addresses.addresses);
+  var postJSON = JSON.parse(request.body.addresses);
+  postJSON = postJSON.addresses;
   console.log(JSON.stringify(postJSON));
   for (var index in postJSON.addresses) {
     console.log('processing ' + postJSON.addresses[index].address);
