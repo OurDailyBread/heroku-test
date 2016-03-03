@@ -172,6 +172,7 @@ app.post('/markVacant', function(request, response) {
         return; 
       }
       //h.console.log(record);
+	  console.log('saved record:' record.get('id'));
       console.log(record);
     });
   }
