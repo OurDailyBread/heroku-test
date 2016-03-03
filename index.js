@@ -157,7 +157,8 @@ app.post('/markVacant', function(request, response) {
       vacantBoolean = true;
     } else if (postJSON.addresses[index].vacant == 'false') {
       vacantBoolean = false;
-    } else {
+    } else if ((postJSON.addresses[index].vacant != true) && 
+	  postJSON.addresses[index].vacant != false)){
 	  console.log('incorrect vacant boolean value');
       response.end('incorrect vacant boolean value');
       return;
