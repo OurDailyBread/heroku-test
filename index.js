@@ -146,9 +146,10 @@ var vacantBase = new Airtable({ apiKey: 'keyWInwqgSshQe7GV' }).base('app8lwvpYxD
 
 app.post('/markVacant', function(request, response) {
 
-  console.log('POST test successful ' + JSON.stringify(request.body));
+  console.log('POST received ' + JSON.stringify(request.body));
 
   var postJSON = JSON.parse(request.body.addresses);
+  console.log(JSON.stringify(postJSON));
   for (var index in postJSON.addresses) {
     console.log('processing ' + postJSON.addresses[index].address);
     var vacantBoolean = false;
